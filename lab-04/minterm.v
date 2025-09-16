@@ -3,6 +3,6 @@ module minterm (
     output Y
 );
 
-assign Y = ; // Enter your equation here
+assign Y = (~A & ~B & D) | (~D & (C | B)); // Enter your equation here
 
 endmodule

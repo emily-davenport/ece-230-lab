@@ -3,6 +3,13 @@ module naive (
     output Y
 );
 
-assign Y = ; // Enter your equation here
+assign Y =  (~A & ~B & ~C & D) |
+            (~A & ~B & C & ~D) |
+            (~A & ~B & C & D)  |
+            (~A & B & ~C & ~D) |
+            (~A & B & C & ~D)  |
+            (A & ~B & C & ~D)  |
+            (A & B & ~C & ~D)  |
+            (A & B & C & ~D);
 
 endmodule
