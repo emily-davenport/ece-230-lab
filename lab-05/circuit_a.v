@@ -3,6 +3,6 @@ module circuit_a(
     output Y
 );
 
-    assign Y = (A | D) & ~A;
+    assign Y = D & ~A;
 
 endmodule
