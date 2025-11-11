@@ -1,5 +1,31 @@
+module top(
+    input sw, // w
+    output [9:0] led, // see IO table
+    input btnC, // clk
+    input btnU // reset
+);
+
+    one_hot_state_machine onehot(
+        .w(sw),
+        .clk(btnC),
+        .reset(btnU),
+        .z(led[0]),
+        .state(led[6:2])
+    );
+    
+    binary_state_machine binary(
+        .w(sw),
+        .clk(btnC),
+        .reset(btnU),
+        .z(led[1]),
+        .state_out(led[9:7])
+    );
+
+endmodule
+
 module binary_state_machine(
     input w,
+    input reset,
     input clk,
     output z,
     output [2:0] state_out
@@ -10,6 +36,7 @@ module binary_state_machine(
     
     dff zero(
         .Default(1'b0),
+        .reset(reset),
         .D(Next[0]),
         .clk(clk),
         .Q(State[0])
@@ -17,6 +44,7 @@ module binary_state_machine(
     
     dff one(
         .Default(1'b0),
+        .reset(reset),
         .D(Next[1]),
         .clk(clk),
         .Q(State[1])
@@ -24,6 +52,7 @@ module binary_state_machine(
     
     dff two(
         .Default(1'b0),
+        .reset(reset),
         .D(Next[2]),
         .clk(clk),
         .Q(State[2])

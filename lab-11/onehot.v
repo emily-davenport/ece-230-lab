@@ -1,5 +1,6 @@
 module one_hot_state_machine(
     input w,
+    input reset,
     input clk,
     output z,
     output [4:0] state
@@ -10,6 +11,7 @@ module one_hot_state_machine(
     
     dff Adff(
         .Default(1'b1),
+        .reset(reset),
         .D(Anext),
         .clk(clk),
         .Q(Astate)
@@ -17,6 +19,7 @@ module one_hot_state_machine(
     
     dff Bdff(
         .Default(1'b0),
+        .reset(reset),
         .D(Bnext),
         .clk(clk),
         .Q(Bstate)
@@ -24,9 +27,26 @@ module one_hot_state_machine(
     
     dff Cdff(
         .Default(1'b0),
+        .reset(reset),
         .D(Cnext),
         .clk(clk),
         .Q(Cstate)
+    );
+    
+    dff Ddff(
+        .Default(1'b0),
+        .reset(reset),
+        .D(Dnext),
+        .clk(clk),
+        .Q(Dstate)
+    );
+    
+    dff Edff(
+        .Default(1'b0),
+        .reset(reset),
+        .D(Enext),
+        .clk(clk),
+        .Q(Estate)
     );
     
     assign Anext = 0;
@@ -37,6 +57,6 @@ module one_hot_state_machine(
     
     assign z = Cstate | Estate;
     
-    assign state = {Astate, Bstate, Cstate, Dstate, Estate};
+    assign state = {Estate, Dstate, Cstate, Bstate, Astate};
 
 endmodule
