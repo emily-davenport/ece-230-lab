@@ -51,6 +51,7 @@ module test();
         if (mc_out !== 1'b0) begin
             $display("Reset logic in modulo counter is wrong");
         end
+        $finish;
     end
 
 endmodule
